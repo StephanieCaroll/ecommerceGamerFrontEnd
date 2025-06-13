@@ -12,7 +12,7 @@ export default function Produto({ produto, adicionarAoCarrinho, onClick }) {
         <p className="card-text">Descrição: {produto.descricao_produto || 'N/A'}</p>
         <p className="card-text">Estoque: {produto.estoque_produto || 'N/A'}</p>
         <button
-          className="btn btn-primary mt-auto"
+          className="btn btn-primary me-2 d-flex align-items-center transition"
           onClick={(e) => {
             e.stopPropagation();
             adicionarAoCarrinho(produto);

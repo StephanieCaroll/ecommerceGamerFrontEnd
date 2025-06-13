@@ -51,21 +51,21 @@ export default function AreaProtegida() {
 
   return (
     <div className="container mt-5" role="main" aria-label="Área administrativa"> 
-      <h1 tabIndex={0} role="heading" aria-level="1">Área Admnistrativa (CRUD)</h1> 
+      <h1 className="text-black" tabIndex={0} role="heading" aria-level="1">Área Admnistrativa (CRUD)</h1> 
       {usuarioLogado ? (
-        <p tabIndex={0} role="status">Bem-vindo, {usuarioLogado.nome_usuario}!</p>
+        <p className="text-black" tabIndex={0} role="status">Bem-vindo, {usuarioLogado.nome_usuario}!</p>
       ) : (
-        <p tabIndex={0} role="status">Você não está logado.</p>
+        <p className="text-black" tabIndex={0} role="status">Você não está logado.</p>
       )}
-      <form onSubmit={handleSubmit} className="mb-4" role="form" aria-label="Formulário de cadastro de produto"> 
-        <div className="row">
+      <form onSubmit={handleSubmit} className="mb-4 text-black" role="form" aria-label="Formulário de cadastro de produto"> 
+        <div className="row text-black">
           <div className="col-md-6 mb-3">
-            <label className="form-label" htmlFor="nome_produto">Nome do Produto:</label>
+            <label className="form-label text-black" htmlFor="nome_produto">Nome do Produto:</label>
             <input type="text" name="nome_produto" id="nome_produto" value={produto.nome_produto} onChange={handleInputChange} className="form-control" required aria-required="true" aria-label="Nome do produto" tabIndex={0} />
           </div>
           <div className="col-md-6 mb-3">
             <label className="form-label" htmlFor="descricao_produto">Descrição do Produto:</label>
-            <input type="text" name="descricao_produto" id="descricao_produto" value={produto.descricao_produto} onChange={handleInputChange} className="form-control" required aria-required="true" aria-label="Descrição do produto" tabIndex={0} /> 
+            <input  type="text" name="descricao_produto" id="descricao_produto" value={produto.descricao_produto} onChange={handleInputChange} className="form-control text-black" required aria-required="true" aria-label="Descrição do produto" tabIndex={0} /> 
           </div>
         </div>
         <div className="row">
@@ -80,7 +80,7 @@ export default function AreaProtegida() {
         </div>
         <button type="submit" className="btn btn-primary" aria-label="Adicionar produto" tabIndex={0}>Adicionar Produto</button> 
       </form>
-      <h2 tabIndex={0} role="heading" aria-level="2">Produtos</h2>
+      <h2 className="text-black" tabIndex={0} role="heading" aria-level="2">Produtos</h2>
       <ul className="list-group" role="list" aria-label="Lista de produtos cadastrados">
         {produtos.map((produto) => (
           <li key={produto.id_produto} className="list-group-item d-flex justify-content-between align-items-center" role="listitem" tabIndex={0}> 

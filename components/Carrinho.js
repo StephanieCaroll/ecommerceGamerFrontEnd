@@ -40,11 +40,25 @@ export default function Carrinho({ removerDoCarrinho, onProceedToPayment, onUpda
   return (
     <div className="container mt-5" aria-label="Carrinho de compras" role="main">
       <div className="cart-container p-4 border rounded" aria-label="Carrinho de compras" role="region">
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center text-black">
           <h2 tabIndex={0} role="heading" aria-level="2">Seu Carrinho</h2>
         </div>
         {itens.length === 0 ? (
+           <div className="d-flex justify-content-between align-items-center text-black">
           <p tabIndex={0} role="status">Seu carrinho está vazio.</p>
+
+           <button
+                className="btn btn-outline-warning "
+                style={{ color: '#fff', borderColor: '#ff9800', backgroundColor: '#ff9800' }}
+                onClick={() => (typeof setPagina === 'function' ? setPagina('home') : window.location.assign('/'))}
+                aria-label="Adicionar mais itens ao carrinho"
+                tabIndex={0}
+              >
+                Adicionar itens
+              </button>
+              
+          </div>
+          
         ) : (
           <>
             <div className="row" role="list" aria-label="Lista de itens do carrinho">
@@ -52,14 +66,14 @@ export default function Carrinho({ removerDoCarrinho, onProceedToPayment, onUpda
                 <div className="col-6 col-md-3 mb-4" key={index} aria-label={`Item: ${item.nome_produto}, Quantidade: ${item.quantidade}`} tabIndex="0" role="listitem">
                   <div className="card h-100 text-center shadow-sm">
                     <div className="card-body d-flex flex-column">
-                      <h3 className="card-title fs-5 fw-bold" tabIndex={0}>{item.nome_produto}</h3>
+                      <h3 className="card-title fs-5 fw-bold text-black" tabIndex={0}>{item.nome_produto}</h3>
                       <p className="card-text text-primary fw-semibold">Preço: R$ {item.preco_produto}</p>
-                      <p className="card-text">Estoque: {item.estoque_produto}</p>
+                      <p className="card-text text-black">Estoque: {item.estoque_produto}</p>
                       <div className="input-group mb-2" role="group" aria-label="Alterar quantidade">
                         <button className="btn btn-outline-secondary" type="button" onClick={() => handleDecrement(index)} aria-label={`Diminuir quantidade de ${item.nome_produto}`}>-</button>
                         <input
                           type="number"
-                          className="form-control bg-dark text-white"
+                          className="form-control text-black text-center"
                           value={item.quantidade}
                           readOnly
                           aria-label={`Quantidade de ${item.nome_produto}`}
@@ -73,7 +87,7 @@ export default function Carrinho({ removerDoCarrinho, onProceedToPayment, onUpda
                 </div>
               ))}
             </div>
-            <div className="d-flex justify-content-between align-items-center mt-3">
+            <div className="d-flex justify-content-between align-items-center mt-3 text-black">
               <h4 tabIndex={0}>Total: R$ {total}</h4>
             </div>
             <div className="d-flex justify-content-end align-items-center gap-3 mt-3" role="group" aria-label="Ações do carrinho">
