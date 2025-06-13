@@ -105,7 +105,7 @@ export default function ListaDeProdutos({ produtos, adicionarAoCarrinho, categor
           ) : (
             <div>
               {produtosFinaisParaExibir.length === 0 && (
-                <p className="text-center lead text-black">Nenhum produto encontrado com o termo ou categoria selecionados.</p>
+                <p className="text-center lead text-black">Nenhum produto encontrado.</p>
               )}
 
               <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" role="list" aria-label="Lista de produtos">
