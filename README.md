@@ -65,8 +65,6 @@ O objetivo deste projeto é criar uma plataforma de e-commerce inclusiva básica
 5. Abra o navegador e vá para http://localhost:3000 para ver o e-commerce em funcionamento. <br>
 
 
-```
-
 ### Execute o Projeto
 
 1. **Inicie o servidor de desenvolvimento**:
