@@ -1,84 +1,100 @@
-# Meu Ecommerce Gamer
+# 🛒 E-Commerce com Next.jse React Acessivel 
 
-Este é um projeto de ecommerce para gamers, desenvolvido com Next.js, React e outras tecnologias.
+Este repositório contém o código-fonte de um e-commerce simples desenvolvido com Next.js e React, que permite aos usuários visualizar e pesquisar produtos, além de navegar entre diferentes categorias. O projeto implementa uma loja online "funcional" com os principais componentes para exibição de produtos e navegação. 
 
-## Pré-requisitos
+(É necessário o projeto do BackEnd para buscar os produtos)
 
-Antes de começar, certifique-se de ter o seguinte instalado em sua máquina:
+## 🌟 Sobre o Projeto
 
-- Node.js (versão 14 ou superior)
-- npm (gerenciador de pacotes do Node.js) ou yarn
+O objetivo deste projeto é criar uma plataforma de e-commerce inclusiva básica onde os usuários possam visualizar produtos, pesquisar itens específicos e navegar entre diferentes categorias. O projeto simula um sistema de compra com informações fictícias sobre os produtos, como preço, título e imagem. Além da implementação do botão de acessibilidade.
 
-## Instalação
+### Funcionalidades Principais:
 
-Instale as dependências do projeto:
+- **Exibição de Produtos:** Mostra os produtos disponíveis na loja.
 
-```bash
-npm install
+- **Barra de Pesquisa:** Permite ao usuário pesquisar produtos por nome.
+
+- **Header:** Exibe o título do site e o menu de navegação.
+
+- **Footer:** Exibe informações sobre o site e links úteis.
+
+## 📚 Componentes
+
+- **AccessibilityWidget.js:** Botão de Acessibilidade.
+
+- **AreaAdministrativa.js:** Componente que exibe a área administrativa, que permite a edição e adição de produtos.
+
+-  **Carrinho.js:** Exibe informações sobre o carrinho.
+
+- **Footer.js:** Contém informações sobre o e-commerce, links úteis, e outros detalhes de rodapé.
+
+- **Header.js:** A barra de navegação superior, com o nome do e-commerce e links para navegar pelas páginas.
+
+- **ListaDeProdutos.js:** Exibe a lista de produtos, renderizando múltiplos componentes Product.
+
+- **Login.js** Cadastro e criação de contas
+
+-  **Oders.js:** Configurações do carrinho.
+
+-  **Payment.js:** Formulários para Pagamento.
+
+- **Produto.js:** Componente que exibe informações de um único produto, incluindo imagem, título e preço.
+
+-  **Toast:** Mensagem de Confirmação.
+
+## 🚀 Tecnologias Utilizadas
+- **Next.js:** Framework para React que possibilita renderização do lado do servidor e criação de páginas de forma otimizada.
+- **React:** Biblioteca para construção de interfaces de usuário.
+- **CSS:** Estilização dos componentes do site.
+
+## 🛠️ Como Rodar o Projeto Localmente
+1. Clone este repositório para sua máquina local:
+    ```
+    git clone https://github.com/StephanieCaroll/Ecommerce-IPI.git
+2. Navegue até o diretório do projeto:
+    ```
+     cd ecommerce-next-react
+3. Instale as dependências do projeto:
+    ```
+     npm install 
+     ou 
+     npm install --force
+4. Execute o projeto:
+    ```
+     npm run dev
+5. Abra o navegador e vá para http://localhost:3000 para ver o e-commerce em funcionamento. <br>
+
+
 ```
 
-ou, se preferir usar yarn:
+### Execute o Projeto
 
-```bash
-yarn install
-```
+1. **Inicie o servidor de desenvolvimento**:
 
-## Executando o Projeto
-
-Para iniciar o servidor de desenvolvimento, execute o seguinte comando:
-
-```bash
+```jsx
 npm run dev
+
 ```
 
-ou, se estiver usando yarn:
+**Acesse seu e-commerce** em `http://localhost:3000`.
+**Site para API** -> www.cheapshark.com.
 
-```bash
-yarn dev
-```
+## 🤝 Contribuições
+Sinta-se à vontade para contribuir com este repositório! <br>
 
-O servidor de desenvolvimento estará disponível em [http://localhost:3000](http://localhost:3000).
+💡 Sugira novas funcionalidades. <br>
 
-## Integração com o Backend
+🐛 Relate bugs ou problemas. <br>
 
-Este projeto se integra com um servidor backend local para fornecer dados e funcionalidades adicionais. Certifique-se de que o servidor backend esteja em execução antes de iniciar o frontend.
+📚 Compartilhe recursos ou melhorias no design. <br>
 
-### Configuração do Backend
+## 📬 Contato
+Autor: Stephanie Caroline, Evellyn Orico, Ewerthon Weslley
 
-1. Extraia o arquivo do backend em sua máquina.
-2. Siga as instruções no README do repositório do backend para instalar as dependências e configurar o ambiente.
-3. Inicie o servidor backend com o comando apropriado.
+E-mail: <br>
 
-### Executando o Projeto
+LinkedIn: <br>
 
-Depois que o backend estiver em execução, você pode iniciar o servidor de desenvolvimento do frontend com os comandos mencionados anteriormente:
+GitHub: <br>
 
-```bash
-npm run dev
-```
 
-ou, se estiver usando yarn:
-
-```bash
-yarn dev
-```
-
-O servidor de desenvolvimento estará disponível em [http://localhost:3000](http://localhost:3000).
-
-## Estrutura do Projeto
-
-- `pages/`: Contém as páginas do Next.js.
-- `components/`: Contém os componentes React reutilizáveis.
-- `styles/`: Contém os arquivos de estilo (CSS, SCSS, etc.).
-- `public/`: Contém arquivos estáticos, como imagens e fontes.
-
-## Tecnologias Utilizadas
-
-Este projeto utiliza as seguintes tecnologias:
-
-- [Next.js](https://nextjs.org/)
-- [React](https://reactjs.org/)
-- [Bootstrap](https://getbootstrap.com/)
-- [Axios](https://axios-http.com/)
-- [React Bootstrap](https://react-bootstrap.github.io/)
-- [Tailwind CSS](https://tailwindcss.com/)
