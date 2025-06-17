@@ -1,14 +1,14 @@
-import '@fortawesome/fontawesome-svg-core/styles.css'; 
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CartProvider } from '../context/CartContext';
 import '../styles/globals.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Script from 'next/script';
-import { Roboto, Roboto_Mono, Roboto_Slab, PT_Serif } from 'next/font/google'; 
+import { Roboto, Roboto_Mono, Roboto_Slab, PT_Serif } from 'next/font/google';
 import Head from 'next/head';
+import AccessibilityWidget from '../components/AccessibilityWidget';
 
-//Fontes do Google
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
   style: ['normal', 'italic'],
@@ -23,8 +23,7 @@ const robotoMono = Roboto_Mono({
   variable: '--font-roboto-mono',
 });
 
-
-const robotoSlab = Roboto_Slab({ 
+const robotoSlab = Roboto_Slab({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   subsets: ['latin'],
   variable: '--font-roboto-slab',
@@ -37,17 +36,12 @@ const ptSerif = PT_Serif({
   variable: '--font-pt-serif',
 });
 
-
 function MyApp({ Component, pageProps }) {
   return (
     <>
-
- <Head>
-        
-        <link rel="icon" href="images/logo.png" type="image/png" sizes="32x32" /> 
-
-       <title>GamerStore</title>
-       
+      <Head>
+        <link rel="icon" href="images/logo.png" type="image/png" sizes="32x32" />
+        <title>GamerStore</title>
       </Head>
 
       <div className={`${roboto.className} ${roboto.variable} ${robotoMono.variable} ${robotoSlab.variable} ${ptSerif.variable}`}>
@@ -55,10 +49,12 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </CartProvider>
       </div>
-      <Script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        strategy="afterInteractive"
-      />
+
+      <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" strategy="afterInteractive" />
+
+      <Script src="https://plugin.prodeaf.com/latest/prodeaf.min.js" strategy="afterInteractive" />
+
+      <AccessibilityWidget />
     </>
   );
 }

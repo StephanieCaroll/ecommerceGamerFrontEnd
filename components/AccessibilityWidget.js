@@ -1,126 +1,71 @@
 import React, { useState, useEffect } from 'react';
-import { FaUniversalAccess, FaFont, FaAdjust, FaTimes } from 'react-icons/fa';
+import { FaUniversalAccess, FaFont, FaAdjust, FaTimes, FaSignLanguage } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
 
-export default function WidgetAcessibilidade() {
-
+export default function AccessibilityWidget() {
   const [estaAberto, setEstaAberto] = useState(false);
   const [ehAltoContraste, setEhAltoContraste] = useState(false);
-  const [multiplicadorTamanhoFonte, setMultiplicadorTamanhoFonte] = useState(1); 
+  const [multiplicadorTamanhoFonte, setMultiplicadorTamanhoFonte] = useState(1);
 
   useEffect(() => {
-  
+    const script = document.createElement("script");
+    script.src = "https://vlibras.gov.br/app/vlibras-widget.js";
+    script.async = true;
+    document.head.appendChild(script);
+
+    script.onload = () => {
+      new window.VLibras.Widget('https://vlibras.gov.br/app', 'top', ['acessibility-button'], 'button');
+    };
+  }, []);
+
+  useEffect(() => {
     const contrasteSalvo = localStorage.getItem('acessibilidade-altoContraste');
     if (contrasteSalvo !== null) {
-      const contrasteAnalisado = JSON.parse(contrasteSalvo);
-      setEhAltoContraste(contrasteAnalisado);
-      if (contrasteAnalisado) {
-        document.body.classList.add('alto-contraste'); 
-      }
+      setEhAltoContraste(JSON.parse(contrasteSalvo));
+      document.body.classList.toggle('alto-contraste', JSON.parse(contrasteSalvo));
     }
 
     const tamanhoFonteSalvo = localStorage.getItem('acessibilidade-tamanhoFonte');
     if (tamanhoFonteSalvo) {
-      const tamanhoFonteAnalisado = parseFloat(tamanhoFonteSalvo);
-      setMultiplicadorTamanhoFonte(tamanhoFonteAnalisado);
-      
-      document.documentElement.style.setProperty('--multiplicador-tamanho-fonte', tamanhoFonteAnalisado);
+      setMultiplicadorTamanhoFonte(parseFloat(tamanhoFonteSalvo));
+      document.documentElement.style.setProperty('--multiplicador-tamanho-fonte', tamanhoFonteSalvo);
     }
-  }, []); 
+  }, []);
 
   useEffect(() => {
-    if (ehAltoContraste) {
-      document.body.classList.add('alto-contraste');
-    } else {
-      document.body.classList.remove('alto-contraste');
-    }
-   
+    document.body.classList.toggle('alto-contraste', ehAltoContraste);
     localStorage.setItem('acessibilidade-altoContraste', JSON.stringify(ehAltoContraste));
   }, [ehAltoContraste]);
 
-
   useEffect(() => {
-   
     document.documentElement.style.setProperty('--multiplicador-tamanho-fonte', multiplicadorTamanhoFonte);
-    
     localStorage.setItem('acessibilidade-tamanhoFonte', multiplicadorTamanhoFonte.toString());
-  }, [multiplicadorTamanhoFonte]); 
-
-  const alternarAltoContraste = () => {
-    setEhAltoContraste(prev => !prev);
-  };
-
-  const aumentarTamanhoFonte = () => {
-    setMultiplicadorTamanhoFonte(prev => Math.min(prev + 0.1, 1.3));
-  };
-
-  const diminuirTamanhoFonte = () => {
-    setMultiplicadorTamanhoFonte(prev => Math.max(prev - 0.1, 0.8));
-  };
-
-  const resetarTamanhoFonte = () => {
-    setMultiplicadorTamanhoFonte(1);
-  };
+  }, [multiplicadorTamanhoFonte]);
 
   return (
     <div className="container-widget-acessibilidade">
-      {/* Botão principal para abrir/fechar o menu de acessibilidade */}
-      <button
-        className="botao-alternar-acessibilidade"
-        onClick={() => setEstaAberto(!estaAberto)}
-        aria-label={estaAberto ? "Fechar menu de acessibilidade" : "Abrir menu de acessibilidade"}
-        title={estaAberto ? "Fechar menu de acessibilidade" : "Abrir menu de acessibilidade"}
-      >
-        <FaUniversalAccess size={24} /> {/* Ícone de acessibilidade */}
+      <button className="botao-alternar-acessibilidade" onClick={() => setEstaAberto(!estaAberto)}>
+        <FaUniversalAccess size={24} />
       </button>
-
-      {/* Menu de opções de acessibilidade, visível apenas quando 'estaAberto' é true */}
       {estaAberto && (
-        <div className="menu-acessibilidade card p-3 shadow-lg" role="menu" aria-label="Opções de acessibilidade">
-          {/* Botão para alternar Alto Contraste */}
-          <button
-            onClick={alternarAltoContraste}
-            className="btn btn-sm btn-block btn-outline-dark d-flex align-items-center mb-2"
-            aria-label={`Alternar alto contraste. Atualmente ${ehAltoContraste ? 'ativado' : 'desativado'}.`}
-            role="menuitem"
-          >
+        <div className="menu-acessibilidade card p-3 shadow-lg">
+          <button onClick={() => setEhAltoContraste(prev => !prev)} className="btn btn-sm btn-outline-dark">
             <FaAdjust className="me-2" /> Alto Contraste
           </button>
-          {/* Botão para Aumentar Fonte */}
-          <button
-            onClick={aumentarTamanhoFonte}
-            className="btn btn-sm btn-block btn-outline-dark d-flex align-items-center mb-2"
-            aria-label="Aumentar tamanho da fonte"
-            role="menuitem"
-          >
+          <button onClick={() => setMultiplicadorTamanhoFonte(prev => Math.min(prev + 0.1, 1.3))} className="btn btn-sm btn-outline-dark">
             <FaFont className="me-2" /> Aumentar Fonte (A+)
           </button>
-          {/* Botão para Diminuir Fonte */}
-          <button
-            onClick={diminuirTamanhoFonte}
-            className="btn btn-sm btn-block btn-outline-dark d-flex align-items-center mb-2"
-            aria-label="Diminuir tamanho da fonte"
-            role="menuitem"
-          >
+          <button onClick={() => setMultiplicadorTamanhoFonte(prev => Math.max(prev - 0.1, 0.8))} className="btn btn-sm btn-outline-dark">
             <FaFont className="me-2" /> Diminuir Fonte (A-)
           </button>
-          {/* Botão para Resetar Fonte */}
-          <button
-            onClick={resetarTamanhoFonte}
-            className="btn btn-sm btn-block btn-outline-dark d-flex align-items-center"
-            aria-label="Redefinir tamanho da fonte para o padrão"
-            role="menuitem"
-          >
+          <button onClick={() => setMultiplicadorTamanhoFonte(1)} className="btn btn-sm btn-outline-dark">
             <FaFont className="me-2" /> Resetar Fonte
           </button>
-          {/* Botão para Fechar o menu de acessibilidade */}
-          <button
-            className="btn btn-sm btn-danger botao-fechar-acessibilidade"
-            onClick={() => setEstaAberto(false)}
-            aria-label="Fechar menu de acessibilidade"
-            title="Fechar"
-          >
+          <button id="acessibility-button" className="btn btn-sm btn-outline-dark">
+            <FaSignLanguage className="me-2" /> Libras 
+          </button>
+          <button className="btn btn-sm btn-danger" onClick={() => setEstaAberto(false)}>
             <FaTimes size={16} /> Fechar
           </button>
         </div>
