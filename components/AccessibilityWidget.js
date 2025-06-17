@@ -1,109 +1,123 @@
 import React, { useState, useEffect } from 'react';
 import { FaUniversalAccess, FaFont, FaAdjust, FaTimes } from 'react-icons/fa';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/globals.css';
 
-export default function AccessibilityWidget() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isHighContrast, setIsHighContrast] = useState(false);
-  const [fontSizeMultiplier, setFontSizeMultiplier] = useState(1); 
+export default function WidgetAcessibilidade() {
+
+  const [estaAberto, setEstaAberto] = useState(false);
+  const [ehAltoContraste, setEhAltoContraste] = useState(false);
+  const [multiplicadorTamanhoFonte, setMultiplicadorTamanhoFonte] = useState(1); 
 
   useEffect(() => {
-    const savedContrast = localStorage.getItem('accessibility-highContrast');
-    if (savedContrast !== null) {
-      const parsedContrast = JSON.parse(savedContrast);
-      setIsHighContrast(parsedContrast);
-      if (parsedContrast) {
-        document.body.classList.add('high-contrast');
+  
+    const contrasteSalvo = localStorage.getItem('acessibilidade-altoContraste');
+    if (contrasteSalvo !== null) {
+      const contrasteAnalisado = JSON.parse(contrasteSalvo);
+      setEhAltoContraste(contrasteAnalisado);
+      if (contrasteAnalisado) {
+        document.body.classList.add('alto-contraste'); 
       }
     }
 
-    const savedFontSize = localStorage.getItem('accessibility-fontSize');
-    if (savedFontSize) {
-      const parsedFontSize = parseFloat(savedFontSize);
-      setFontSizeMultiplier(parsedFontSize);
-      document.documentElement.style.setProperty('--font-size-multiplier', parsedFontSize);
+    const tamanhoFonteSalvo = localStorage.getItem('acessibilidade-tamanhoFonte');
+    if (tamanhoFonteSalvo) {
+      const tamanhoFonteAnalisado = parseFloat(tamanhoFonteSalvo);
+      setMultiplicadorTamanhoFonte(tamanhoFonteAnalisado);
+      
+      document.documentElement.style.setProperty('--multiplicador-tamanho-fonte', tamanhoFonteAnalisado);
     }
-  }, []);
+  }, []); 
 
   useEffect(() => {
-    if (isHighContrast) {
-      document.body.classList.add('high-contrast');
+    if (ehAltoContraste) {
+      document.body.classList.add('alto-contraste');
     } else {
-      document.body.classList.remove('high-contrast');
+      document.body.classList.remove('alto-contraste');
     }
-    localStorage.setItem('accessibility-highContrast', JSON.stringify(isHighContrast));
-  }, [isHighContrast]);
+   
+    localStorage.setItem('acessibilidade-altoContraste', JSON.stringify(ehAltoContraste));
+  }, [ehAltoContraste]);
+
 
   useEffect(() => {
+   
+    document.documentElement.style.setProperty('--multiplicador-tamanho-fonte', multiplicadorTamanhoFonte);
+    
+    localStorage.setItem('acessibilidade-tamanhoFonte', multiplicadorTamanhoFonte.toString());
+  }, [multiplicadorTamanhoFonte]); 
 
-    document.documentElement.style.setProperty('--font-size-multiplier', fontSizeMultiplier);
-    localStorage.setItem('accessibility-fontSize', fontSizeMultiplier.toString());
-  }, [fontSizeMultiplier]);
-
-  const toggleHighContrast = () => {
-    setIsHighContrast(prev => !prev);
+  const alternarAltoContraste = () => {
+    setEhAltoContraste(prev => !prev);
   };
 
-  const increaseFontSize = () => {
-    setFontSizeMultiplier(prev => Math.min(prev + 0.1, 1.3)); 
+  const aumentarTamanhoFonte = () => {
+    setMultiplicadorTamanhoFonte(prev => Math.min(prev + 0.1, 1.3));
   };
 
-  const decreaseFontSize = () => {
-    setFontSizeMultiplier(prev => Math.max(prev - 0.1, 0.8)); 
+  const diminuirTamanhoFonte = () => {
+    setMultiplicadorTamanhoFonte(prev => Math.max(prev - 0.1, 0.8));
   };
 
-  const resetFontSize = () => {
-    setFontSizeMultiplier(1);
+  const resetarTamanhoFonte = () => {
+    setMultiplicadorTamanhoFonte(1);
   };
 
   return (
-    <div className="accessibility-widget-container">
+    <div className="container-widget-acessibilidade">
+      {/* Botão principal para abrir/fechar o menu de acessibilidade */}
       <button
-        className="accessibility-toggle-button"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label={isOpen ? "Fechar menu de acessibilidade" : "Abrir menu de acessibilidade"}
-        title={isOpen ? "Fechar menu de acessibilidade" : "Abrir menu de acessibilidade"}
+        className="botao-alternar-acessibilidade"
+        onClick={() => setEstaAberto(!estaAberto)}
+        aria-label={estaAberto ? "Fechar menu de acessibilidade" : "Abrir menu de acessibilidade"}
+        title={estaAberto ? "Fechar menu de acessibilidade" : "Abrir menu de acessibilidade"}
       >
-        <FaUniversalAccess size={24} />
+        <FaUniversalAccess size={24} /> {/* Ícone de acessibilidade */}
       </button>
 
-      {isOpen && (
-        <div className="accessibility-menu card p-3 shadow-lg" role="menu" aria-label="Opções de acessibilidade">
+      {/* Menu de opções de acessibilidade, visível apenas quando 'estaAberto' é true */}
+      {estaAberto && (
+        <div className="menu-acessibilidade card p-3 shadow-lg" role="menu" aria-label="Opções de acessibilidade">
+          {/* Botão para alternar Alto Contraste */}
           <button
-            onClick={toggleHighContrast}
+            onClick={alternarAltoContraste}
             className="btn btn-sm btn-block btn-outline-dark d-flex align-items-center mb-2"
-            aria-label={`Alternar alto contraste. Atualmente ${isHighContrast ? 'ativado' : 'desativado'}.`}
+            aria-label={`Alternar alto contraste. Atualmente ${ehAltoContraste ? 'ativado' : 'desativado'}.`}
             role="menuitem"
           >
             <FaAdjust className="me-2" /> Alto Contraste
           </button>
+          {/* Botão para Aumentar Fonte */}
           <button
-            onClick={increaseFontSize}
+            onClick={aumentarTamanhoFonte}
             className="btn btn-sm btn-block btn-outline-dark d-flex align-items-center mb-2"
             aria-label="Aumentar tamanho da fonte"
             role="menuitem"
           >
             <FaFont className="me-2" /> Aumentar Fonte (A+)
           </button>
+          {/* Botão para Diminuir Fonte */}
           <button
-            onClick={decreaseFontSize}
+            onClick={diminuirTamanhoFonte}
             className="btn btn-sm btn-block btn-outline-dark d-flex align-items-center mb-2"
             aria-label="Diminuir tamanho da fonte"
             role="menuitem"
           >
             <FaFont className="me-2" /> Diminuir Fonte (A-)
           </button>
+          {/* Botão para Resetar Fonte */}
           <button
-            onClick={resetFontSize}
+            onClick={resetarTamanhoFonte}
             className="btn btn-sm btn-block btn-outline-dark d-flex align-items-center"
             aria-label="Redefinir tamanho da fonte para o padrão"
             role="menuitem"
           >
             <FaFont className="me-2" /> Resetar Fonte
           </button>
+          {/* Botão para Fechar o menu de acessibilidade */}
           <button
-            className="btn btn-sm btn-danger accessibility-close-button"
-            onClick={() => setIsOpen(false)}
+            className="btn btn-sm btn-danger botao-fechar-acessibilidade"
+            onClick={() => setEstaAberto(false)}
             aria-label="Fechar menu de acessibilidade"
             title="Fechar"
           >
