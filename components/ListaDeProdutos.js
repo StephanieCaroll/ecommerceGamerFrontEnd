@@ -7,12 +7,11 @@ export default function ListaDeProdutos({ produtos, adicionarAoCarrinho, categor
   const [quantidade, setQuantidade] = useState(1);
 
   useEffect(() => {
-   
     if (produtoSelecionado) {
-      onProductClick(); 
+      onProductClick();
     } else {
     }
-  }, [produtoSelecionado]); 
+  }, [produtoSelecionado]);
 
   const handleProductClick = (produto) => {
     setProdutoSelecionado(produto);
@@ -26,7 +25,7 @@ export default function ListaDeProdutos({ produtos, adicionarAoCarrinho, categor
     }
   };
 
-  const handleVerMaisLocais = () => { 
+  const handleVerMaisLocais = () => {
     setQuantidadeMostrar(quantidadeMostrar + 6);
   };
 
@@ -34,13 +33,17 @@ export default function ListaDeProdutos({ produtos, adicionarAoCarrinho, categor
     setQuantidadeMostrar(Math.max(6, quantidadeMostrar - 6));
   };
 
+  // 1. Crie uma cópia dos produtos para evitar mutar o array original
+  // 2. Classifique os produtos por id_produto em ordem decrescente para que os mais novos apareçam primeiro
+  const produtosOrdenados = [...produtos].sort((a, b) => b.id_produto - a.id_produto);
+
   const produtosFinaisParaExibir = categoriaSelecionada
-    ? produtos.filter(produto => produto.categoria === categoriaSelecionada)
-    : produtos;
+    ? produtosOrdenados.filter(produto => produto.categoria === categoriaSelecionada)
+    : produtosOrdenados; // Use os produtos ordenados aqui
 
   return (
     <>
-      <section className="py-0"> 
+      <section className="py-0">
         <div className="container px-4 px-lg-5 mt-0">
           {produtoSelecionado ? (
             <div className="produto-detalhado p-4 border rounded shadow bg-light text-black" role="region" aria-label="Detalhes do produto selecionado">
@@ -94,7 +97,7 @@ export default function ListaDeProdutos({ produtos, adicionarAoCarrinho, categor
                 className="btn btn-secondary mt-2 ms-2"
                 onClick={() => {
                   setProdutoSelecionado(null);
-                  handleVoltar(); 
+                  handleVoltar();
                 }}
                 aria-label="Voltar para a lista de produtos"
                 tabIndex={0}
@@ -114,7 +117,6 @@ export default function ListaDeProdutos({ produtos, adicionarAoCarrinho, categor
                     <div className="col mb-5" key={produto.id_produto} role="listitem">
                       <div
                         className="card h-100 bg-light"
-                       
                         onClick={() => handleProductClick(produto)}
                         style={{ cursor: 'pointer' }}
                         role="button"
