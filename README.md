@@ -2,7 +2,8 @@
 
 Este repositório contém o código-fonte de um e-commerce simples desenvolvido com Next.js e React, que permite aos usuários visualizar e pesquisar produtos, além de navegar entre diferentes categorias. O projeto implementa uma loja online "funcional" com os principais componentes para exibição de produtos e navegação. 
 
-(É necessário o projeto do BackEnd para buscar os produtos)
+(É necessário o projeto do BackEnd para buscar os produtos <br>
+Acesse ao site para observar o projeto: https://ecommerce-gamer-front-end.vercel.app/
 
 ## 🌟 Sobre o Projeto
 
@@ -59,6 +60,14 @@ O objetivo deste projeto é criar uma plataforma de e-commerce inclusiva básica
      npm install 
      ou 
      npm install --force
+    ,
+    npm install bootstrap-icons
+    ,
+     npm install @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons
+    e
+    npm install react-icons
+
+    
 4. Execute o projeto:
     ```
      npm run dev
