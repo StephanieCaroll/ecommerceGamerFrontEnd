@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import AreaProtegida from "../components/AreaAdministrativa";
+import { useEffect, useState, useCallback } from "react";
+import AreaAdministrativa from "../components/AreaAdministrativa";
 import AccessibilityWidget from "../components/AccessibilityWidget";
 import Carrinho from "../components/Carrinho";
 import Footer from "../components/Footer";
@@ -13,6 +13,7 @@ import { useProdutos } from "../hooks/useProdutos";
 import "../styles/toast.css";
 import Image from 'next/image';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/globals.css'; 
 
 export default function Home() {
   const [pagina, setPagina] = useState("home");
@@ -31,9 +32,8 @@ export default function Home() {
   const produtosExibidos = produtos.filter(produto => {
     const nomeCorresponde = produto.nome_produto.toLowerCase().includes(termoPesquisa.toLowerCase());
     const descricaoCorresponde = produto.descricao_produto ? produto.descricao_produto.toLowerCase().includes(termoPesquisa.toLowerCase()) : false;
-    const categoriaCorresponde = categoriaSelecionada ? produto.categoria === categoriaSelecionada : true;
-
-    return (nomeCorresponde || descricaoCorresponde) && categoriaCorresponde;
+    
+    return (nomeCorresponde || descricaoCorresponde); 
   });
 
   useEffect(() => {
@@ -110,16 +110,11 @@ export default function Home() {
     mostrarToast("Quantidade atualizada!", "update");
   };
 
-  const handleVerMais = (categoria) => {
-    setCategoriaSelecionada(categoria);
-    setTermoPesquisa("");
-  };
-
-  const handleVoltar = () => {
+  const handleVoltarHome = useCallback(() => {
     setCategoriaSelecionada(null);
     setTermoPesquisa("");
-    setProdutoDetalheAberto(false); 
-  };
+    setProdutoDetalheAberto(false);
+  }, []); 
 
   const handleLoginSuccess = (usuario) => {
     setUsuarioLogado(usuario);
@@ -136,9 +131,9 @@ export default function Home() {
     setPagina("home");
   };
 
-  const handleProductCardClick = () => {
-    setProdutoDetalheAberto(true);
-  };
+  const handleProductDetailToggle = useCallback((isOpen) => {
+    setProdutoDetalheAberto(isOpen);
+  }, []);
 
   return (
     <div>
@@ -150,7 +145,7 @@ export default function Home() {
         aria-label="Cabeçalho do site"
       />
 
-      {pagina === "home" && !loading && !produtoDetalheAberto && (
+      {pagina === "home" && !loading && !produtoDetalheAberto && ( 
         <div className="banner-container">
           <Image
             src="/images/bluePixel.gif"
@@ -166,13 +161,13 @@ export default function Home() {
         </div>
       )}
 
-      {pagina === "home" && !loading && !produtoDetalheAberto && (
+      {pagina === "home" && !loading && !produtoDetalheAberto && ( 
         <div className="container my-4">
           <div className="input-group">
             <input
               type="text"
               className="form-control"
-              placeholder="Buscar produtos (nome, descrição ou categoria)..."
+              placeholder="Buscar produtos (nome, descrição)..."
               aria-label="Buscar produtos"
               value={termoPesquisa}
               onChange={(e) => {
@@ -217,9 +212,9 @@ export default function Home() {
                 produtos={produtosExibidos}
                 adicionarAoCarrinho={handleAddToCart}
                 categoriaSelecionada={categoriaSelecionada}
-                handleVerMais={handleVerMais}
-                handleVoltar={handleVoltar}
-                onProductClick={handleProductCardClick} 
+                setCategoriaSelecionada={setCategoriaSelecionada} 
+                handleVoltarHome={handleVoltarHome}
+                onProductClick={handleProductDetailToggle} 
                 aria-label="Lista de produtos disponíveis"
               />
             )}
@@ -236,14 +231,13 @@ export default function Home() {
             )}
             {pagina === "login" && <Login onLoginSuccess={handleLoginSuccess} aria-label="Tela de login" />}
             {pagina === "payment" && <Payment cartItems={itensDoCarrinho} onGoBack={() => setPagina("carrinho")} aria-label="Tela de pagamento" />}
-            {pagina === "protected" && <AreaProtegida aria-label="Área protegida" />}
+            {pagina === "protected" && <AreaAdministrativa aria-label="Área protegida" />}
           </>
         )}
         {mensagemToast && <Toast mensagem={mensagemToast} tipo={tipoToast} aria-live="polite" />}
       </main>
       <Footer aria-label="Rodapé do site" />
-       <AccessibilityWidget />
+      <AccessibilityWidget />
     </div>
-    
   );
 }

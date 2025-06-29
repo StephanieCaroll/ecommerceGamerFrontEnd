@@ -2,10 +2,16 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 
-export default function AreaProtegida() {
+export default function AreaAdministrativa() {
   const { usuarioLogado } = useCart();
   const [produtos, setProdutos] = useState([]);
-  const [produto, setProduto] = useState({ nome_produto: '', descricao_produto: '', preco_produto: '', estoque_produto: '' });
+  const [produto, setProduto] = useState({ 
+    nome_produto: '', 
+    descricao_produto: '', 
+    preco_produto: '', 
+    estoque_produto: '',
+    url_imagem: '' 
+  });
 
   useEffect(() => {
     async function fetchProdutos() {
@@ -30,7 +36,13 @@ export default function AreaProtegida() {
     try {
       const response = await axios.post('http://localhost:3001/produtos', produto);
       alert('Produto adicionado com sucesso!');
-      setProduto({ nome_produto: '', descricao_produto: '', preco_produto: '', estoque_produto: '' });
+      setProduto({ 
+        nome_produto: '', 
+        descricao_produto: '', 
+        preco_produto: '', 
+        estoque_produto: '', 
+        url_imagem: '' 
+      });
       setProdutos([...produtos, response.data]);
     } catch (error) {
       console.error('Erro ao adicionar produto:', error);
@@ -71,11 +83,27 @@ export default function AreaProtegida() {
         <div className="row">
           <div className="col-md-6 mb-3">
             <label className="form-label" htmlFor="preco_produto">Preço do Produto:</label>
-            <input type="number" name="preco_produto" id="preco_produto" value={produto.preco_produto} onChange={handleInputChange} className="form-control" required aria-required="true" aria-label="Preço do produto" tabIndex={0} /> {/* WCAG: required, aria-label, tabIndex */}
+            <input type="number" name="preco_produto" id="preco_produto" value={produto.preco_produto} onChange={handleInputChange} className="form-control" required aria-required="true" aria-label="Preço do produto" tabIndex={0} />
           </div>
           <div className="col-md-6 mb-3">
             <label className="form-label" htmlFor="estoque_produto">Estoque do Produto:</label>
-            <input type="number" name="estoque_produto" id="estoque_produto" value={produto.estoque_produto} onChange={handleInputChange} className="form-control" required aria-required="true" aria-label="Estoque do produto" tabIndex={0} /> {/* WCAG: required, aria-label, tabIndex */}
+            <input type="number" name="estoque_produto" id="estoque_produto" value={produto.estoque_produto} onChange={handleInputChange} className="form-control" required aria-required="true" aria-label="Estoque do produto" tabIndex={0} />
+          </div>
+        </div>
+        {/* NOVO CAMPO: URL da Imagem */}
+        <div className="row">
+          <div className="col-md-12 mb-3">
+            <label className="form-label" htmlFor="url_imagem">URL da Imagem:</label>
+            <input 
+              type="text" 
+              name="url_imagem" 
+              id="url_imagem" 
+              value={produto.url_imagem} 
+              onChange={handleInputChange} 
+              className="form-control" 
+              aria-label="URL da imagem do produto" 
+              tabIndex={0} 
+            />
           </div>
         </div>
         <button type="submit" className="btn btn-primary" aria-label="Adicionar produto" tabIndex={0}>Adicionar Produto</button> 
@@ -85,6 +113,15 @@ export default function AreaProtegida() {
         {produtos.map((produto) => (
           <li key={produto.id_produto} className="list-group-item d-flex justify-content-between align-items-center" role="listitem" tabIndex={0}> 
             <span>
+              {/* EXIBIÇÃO DA IMAGEM NA LISTA */}
+              {produto.url_imagem && ( 
+                <img 
+                  src={produto.url_imagem} 
+                  alt={`Imagem de ${produto.nome_produto}`} 
+                  style={{ width: '50px', height: '50px', marginRight: '10px', objectFit: 'cover', borderRadius: '5px' }} 
+                  onError={(e) => { e.target.onerror = null; e.target.src="/images/placeholder.png" }} 
+                />
+              )}
               {produto.nome_produto} - {produto.descricao_produto} - R$ {produto.preco_produto} - Estoque: {produto.estoque_produto}
             </span>
             <button onClick={() => handleDelete(produto.id_produto)} className="btn btn-danger" aria-label={`Remover ${produto.nome_produto}`} tabIndex={0}>Remover</button> 
