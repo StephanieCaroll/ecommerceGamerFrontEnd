@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps }) {
       <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" strategy="afterInteractive" />
 
       <Script src="https://plugin.prodeaf.com/latest/prodeaf.min.js" strategy="afterInteractive" />
-       <VLibrasButton />
+       {/* <VLibrasButton /> */}
       <AccessibilityWidget />
     </>
   );
