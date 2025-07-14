@@ -4,7 +4,7 @@ Este repositório contém o código-fonte de um e-commerce simples desenvolvido 
 
 (É necessário o projeto do BackEnd para buscar os produtos <br>
 Acesse ao site para observar o projeto: https://ecommerce-gamer-front-end.vercel.app/
-
+É Necessário o BackEnd do Projeto: https://github.com/StephanieCaroll/ecommerceGamerBackEnd
 ## 🌟 Sobre o Projeto
 
 O objetivo deste projeto é criar uma plataforma de e-commerce inclusiva básica onde os usuários possam visualizar produtos, pesquisar itens específicos e navegar entre diferentes categorias. O projeto simula um sistema de compra com informações fictícias sobre os produtos, como preço, título e imagem. Além da implementação do botão de acessibilidade.
