@@ -7,6 +7,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import Script from 'next/script';
 import { Roboto, Roboto_Mono, Roboto_Slab, PT_Serif } from 'next/font/google';
 import Head from 'next/head';
+import VLibrasButton from '../components/VLibrasButton';
 import AccessibilityWidget from '../components/AccessibilityWidget';
 
 const roboto = Roboto({
@@ -53,7 +54,7 @@ function MyApp({ Component, pageProps }) {
       <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" strategy="afterInteractive" />
 
       <Script src="https://plugin.prodeaf.com/latest/prodeaf.min.js" strategy="afterInteractive" />
-
+       <VLibrasButton />
       <AccessibilityWidget />
     </>
   );
