@@ -3,7 +3,7 @@
 Este repositório contém o código-fonte de um e-commerce simples desenvolvido com Next.js e React, que permite aos usuários visualizar e pesquisar produtos, além de navegar entre diferentes categorias. O projeto implementa uma loja online "funcional" com os principais componentes para exibição de produtos e navegação. 
 
 (É necessário o projeto do BackEnd para buscar os produtos <br>
-Acesse ao site para observar o projeto: https://ecommerce-gamer-front-end.vercel.app/
+Acesse ao site para observar o projeto: https://ecommerce-gamer-front-end.vercel.app/ <br> 
 É Necessário o BackEnd do Projeto: https://github.com/StephanieCaroll/ecommerceGamerBackEnd
 ## 🌟 Sobre o Projeto
 
